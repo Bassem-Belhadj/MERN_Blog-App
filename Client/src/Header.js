@@ -6,7 +6,7 @@ function Header(){
       <Link to="/" classeName="logo"> MyBlog </Link>
       <nav>
       <Link to="/login" > Login </Link>
-      <Link to="/regiter" > Register </Link>
+      <Link to="/register" > Register </Link>
       </nav>
       </header>
     )
