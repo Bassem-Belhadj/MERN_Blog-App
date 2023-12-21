@@ -3,13 +3,19 @@ import React, { useState } from "react";
 function RegisterPage (){
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState(''); 
-     async function register(e){
+     async function register(ev){
         e.preventDefault();
-        await fetch('http://localhost:4000/register', {
-            method:'post',
+       
+       const Response=  await fetch('http://localhost:4000/register', {
+            method:'POST',
             body :JSON.stringify({username,password}),
             headers: {'Content-type ': 'application/json' },
-        })
+        });
+        if(Response.status ==false){
+            alert('register successful');
+        }else {
+            alert('register failed');
+        }
     }
     return(
       <form className="register" onSubmit={register}>
@@ -17,12 +23,12 @@ function RegisterPage (){
         <input type="text" 
         placeholder="username"
         value={username}
-        onChange={e=> setUsername(e.target.value)}
+        onChange={ev=> setUsername(ev.target.value)}
         />
         <input type="password" 
         placeholder="password" 
         value={password}
-        onChange={e => setPassword(e.target.value)}
+        onChange={ev => setPassword(ev.target.value)}
         />
         <button>Register</button>
       </form>  
