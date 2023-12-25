@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Header(){
   const [username, setUsername]=useState('');
   useEffect(()=>{
-    fetch('http://localhost:4000/profile',{
+    fetch('http://localhost:4000/porfile',{
       credentials:'include',
     }).then(response =>{
       response.json().then(userInfo=>{
