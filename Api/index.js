@@ -13,7 +13,7 @@ app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser())
 
-mongoose.connect('mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://bassem:bassem@cluster0.jvhddkg.mongodb.net/', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -54,6 +54,9 @@ app.get('/porfile', (req, res)=>{
     })
     res.json(req.cookies);
 
+})
+app.post('/logout',(req,res)=>{
+  res.cookie('token', '').json(ok)
 })
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority
