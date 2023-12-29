@@ -12,7 +12,10 @@ function LoginPage() {
             headers:{'Content-type ': 'application/json'},
             credentials: 'include',
         }); if(Response.ok){
-         setRedirect(true);      
+          Response.json().then(userInfo=>{
+            setRedirect(true);  
+          })
+             
         }else {
             alert('wrong credentials');
         }
