@@ -61,5 +61,9 @@ app.get('/porfile', (req, res)=>{
 app.post('/logout',(req,res)=>{
   res.cookie('token', '').json(ok)
 })
+
+app.post('/post' , (req,res)=>{
+
+});
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority
