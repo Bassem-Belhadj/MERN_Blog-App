@@ -8,10 +8,12 @@ const jwt = require('jsonwebtoken');
 const salt = bcrypt.genSaltSync(10);
 const secret = 'kl,clk,fklldj65';
 const cookieParser = require('cookie-parser')
+const multer = require('multer');
+const uploadMiddleware = multer({ dest: 'uploads/' });
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
-app.use(cookieParser())
+app.use(cookieParser());
 
 mongoose.connect('mongodb+srv://bassem:bassem@cluster0.jvhddkg.mongodb.net/', {
   useNewUrlParser: true,
@@ -62,8 +64,8 @@ app.post('/logout',(req,res)=>{
   res.cookie('token', '').json(ok)
 })
 
-app.post('/post' , (req,res)=>{
-
+app.post('/post' ,uploadMiddleware.single('file') , (req,res)=>{
+res.json(req.files    );
 });
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority

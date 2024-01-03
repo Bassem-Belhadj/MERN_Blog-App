@@ -7,14 +7,14 @@ function CreatePost(){
     const [summary, setSummary] = useState('');
     const [content, setContent] = useState('');
     const [file, setFile]= useState('');
-    function createNewPost (ev){
+   async function createNewPost (ev){
         const data = new FormData(); 
         data.set('title', title);
         data.set('summary', summary);
         data.set('content', content);
         data.set('file', files[0]);
         ev.preventDefault();
-     fetch('http://://localhost:4000/login', {
+     const response = await fetch('http://localhost:4000/login', {
       method:'POST',
       //body: 
      })
