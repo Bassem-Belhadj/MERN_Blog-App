@@ -65,7 +65,8 @@ app.post('/logout',(req,res)=>{
 })
 
 app.post('/post' ,uploadMiddleware.single('file') , (req,res)=>{
-res.json(req.files    );
+
+  res.json({files:req.file});
 });
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority

@@ -16,7 +16,8 @@ function CreatePost(){
         ev.preventDefault();
      const response = await fetch('http://localhost:4000/login', {
       method:'POST',
-      //body: 
+      body:data,
+       
      })
     }
     return(
