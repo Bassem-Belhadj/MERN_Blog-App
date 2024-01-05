@@ -1,11 +1,13 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
-import { UserContext } from "../UserContext";
-function Header(){
-   
+import { UserContext } from "./UserContext";
+
+function Header() {
+  const { userInfo, setUserInfo } = useContext(UserContext);
+
   useEffect(() => {
-    const {setUserInfo}=useContext(UserContext)
+    // Fetch user info and update the context
     fetch('http://localhost:4000/profile', {
       credentials: 'include',
     }).then(response => {
@@ -13,34 +15,40 @@ function Header(){
         setUserInfo(userInfo);
       });
     });
-  }, []);
-  function logout (){
-    fetch('http://localhost:4000/logout',{
-      credentials:'include',
-      method:'POST',
+  }, [setUserInfo]);
+
+  function logout() {
+    // Perform logout logic
+    fetch('http://localhost:4000/logout', {
+      credentials: 'include',
+      method: 'POST',
+    }).then(() => {
+      // After logout, update userInfo in the context
+      setUserInfo(null);
     });
-    setUserInfo(null);
   }
-  
-  const username= userInfo.username?.username;
-    return(
-        <header>
+
+  const username = userInfo?.username;
+
+  return (
+    <header>
       <Link to="/" className="logo"> MyBlog </Link>
       <nav>
-        { username && (
-        <>
-<Link to="/create">Create new post</Link>
-        <a onClick={logout}>Lagout</a>
-        </>
-        )}
-        {!username && (
-          <><Link to="/create">Create new post</Link>
-      <Link to="/login" > Login </Link>
-      <Link to="/register" > Register </Link>
-         </>
+        {username ? (
+          <>
+            <Link to="/create">Create new post</Link>
+            <a onClick={logout}>Logout</a>
+          </>
+        ) : (
+          <>
+            <Link to="/create">Create new post</Link>
+            <Link to="/login">Login</Link>
+            <Link to="/register">Register</Link>
+          </>
         )}
       </nav>
-      </header>
-    )
-};
-export default Header 
+    </header>
+  );
+}
+
+export default Header;

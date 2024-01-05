@@ -7,8 +7,7 @@ import RegisterPage from './Pages/RegisterPage';
 import Post from './Post';
 import {Route, Routes} from 'react-router-dom';
 import CreatePost from './Pages/CreatePost';
-import UserContextProvider from '../UserContext';
-
+import { UserContextProvider } from './UserContext';
 function App() {
   return (
     <UserContextProvider>
