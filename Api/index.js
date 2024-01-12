@@ -10,6 +10,8 @@ const secret = 'kl,clk,fklldj65';
 const cookieParser = require('cookie-parser')
 const multer = require('multer');
 const uploadMiddleware = multer({ dest: 'uploads/' });
+const fs = require('fs');
+const { default: Post } = require('../Client/src/Post');
 
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
@@ -64,9 +66,29 @@ app.post('/logout',(req,res)=>{
   res.cookie('token', '').json(ok)
 })
 
-app.post('/post' ,uploadMiddleware.single('file') , (req,res)=>{
+app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
+  const {originalname,path} = req.file;
+  const parts = originalname.split('.');
+  const ext = parts[parts.length - 1];
+  const newPath = path+'.'+ext;
+  fs.renameSync(path, newPath);
 
-  res.json({files:req.file});
+  const {token} = req.cookies;
+  jwt.verify(token, secret, {}, async (err,info) => {
+    if (err) throw err;
+    const {title,summary,content} = req.body;
+    const postDoc = await Post.create({
+      title,
+      summary,
+      content,
+      cover:newPath,
+      author:info.id,
+    });
+    res.json(postDoc);
+  });
+});
+app.get('/post', async (req,res)=>{
+res.json((await Post.find()).populate('author', ['username']));
 });
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority
