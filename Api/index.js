@@ -16,6 +16,7 @@ const { default: Post } = require('../Client/src/Post');
 app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
 app.use(express.json());
 app.use(cookieParser());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 mongoose.connect('mongodb+srv://bassem:bassem@cluster0.jvhddkg.mongodb.net/', {
   useNewUrlParser: true,
@@ -88,7 +89,12 @@ app.post('/post', uploadMiddleware.single('file'), async (req,res) => {
   });
 });
 app.get('/post', async (req,res)=>{
-res.json((await Post.find()).populate('author', ['username']));
+res.json(
+  await Post.find()
+  .populate('author', ['username'])
+  .sort({createdAt:-1})
+  .limite(20)
+  );
 });
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority

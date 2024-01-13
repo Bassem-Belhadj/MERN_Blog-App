@@ -1,13 +1,19 @@
 import react from 'react';
- 
-function Post(title, summary,cover, content,createdAt,author){
+import {formatISO9075} from "date-fns";
+import { Link } from 'react-router-dom';
+function Post({_id,title, summary,cover, content,createdAt,author}){
 return (
     <div classeName="post">
-    <div classeName="image">       
-    <img src="https://techcrunch.com/wp-content/uploads/2023/06/OpenAI-logo-symmetry.jpg?w=850&h=492&crop=1&fbclid=IwAR2GOgpgav4DTRwWOVxpCXc-VzrTMxkro-HcWwpQd02msGfh153WdGHaQ5Qepard_LaunchPadCheck.webp" alt=""/>
-       </div>
+    <div classeName="image"> 
+      <Link to={`/post/${_id}`}>
+    <img src={'http://localhost:4000'+cover} alt=""/>
+      </Link>      
+    </div>
     <div classeName="texts">
-    <h2>{title}</h2>
+      <Link to={`/post/${_id}`}>
+      <h2>{title}</h2>
+      </Link>
+    
     <p classeName="info">
        <a classeName="author">{author.username}</a>
        <time>{format(new Date(createdAt),'MMM d, YYYY HH:mm')}</time>
