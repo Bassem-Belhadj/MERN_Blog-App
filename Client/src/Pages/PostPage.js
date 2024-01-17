@@ -4,11 +4,17 @@ import { useParams } from "react-router-dom";
 function PostPage(){
    const {id}= useParams();
     useEffect(()=>{
-        
-        //fetch('http://localhost:4000/post')
-    })
+    
+        useEffect(() => {
+            fetch(`http://localhost:4000/post/${id}`)
+              .then(response => {
+                response.json().then(postInfo => {
+                  
+                });
+              });
+          }, []);
     return(
 <div>post page here</div>
-    );
+    )
 }
 export default PostPage
