@@ -17,7 +17,7 @@ function App() {
     <Route path="/create" element={<CreatePost/>} />
     <Route path="/login" element={<LoginPage/>} />
     <Route path="/register" element={<RegisterPage/>}/>
-   { /<Route path="/post/:id" }
+   { //<Route path="/post/:id" }
     </Route>
   </Routes>
     </UserContextProvider>

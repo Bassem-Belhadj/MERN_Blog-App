@@ -96,5 +96,10 @@ res.json(
   .limite(20)
   );
 });
+app.get('/post/:id', async (req,res)=>{
+  const {id} =req.params;
+ const postDoc=await post.findById({id}).populate('author',['username']);
+  res.json(postDoc);
+})
 app.listen(4000);
 //mongodb+srv://bassembelhajboubaker11:Xsip71Tdi5qBtEc4@cluster0.ayozz7k.mongodb.net/?retryWrites=true&w=majority
