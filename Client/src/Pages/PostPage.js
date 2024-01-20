@@ -13,6 +13,7 @@ function PostPage(){
                 });
               });
           }, []);
+       if   (!postInfo) return '';
     return(
 <div className="post-page">
    <div className="image">
